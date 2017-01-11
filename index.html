@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="FestiveEventsApp">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Amsterdam - Festival events locator </title>
+  <script>
+    document.write('<base href="' + document.location + '" />');
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <script data-require="angular.js@1.5.x" src="https://code.angularjs.org/1.5.8/angular.js" data-semver="1.5.8"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?key=&sensor=false&extension=.js"></script>
+  <script src="app.js"></script>
+  <script src="FestiveEventsService.js"></script>
+  <script src="FestiveEventsCtrl.js"></script>
+  <script src="angularGmap.js"></script>
+</head>
+
+<body ng-controller="FestiveEventsCtrl">
+  <h3 class="summary truncate">{{eventDescription}}</h3>
+  <section class="container">
+    <div class="side-menu-section " ng-class="openMenu ? 'side-menu-open':'side-menu-close'">
+      <div class="toggle-btn-section" ng-click="toggleMenu()" ng-class="openMenu ? 'close-icon':'open-icon'">
+      </div>
+      <div class=" suggestions outer">
+        <ul>
+          <li ng-repeat="event in eventList" ng-click="mapCoordinates(event.point.posList,event.targetPOI ,event.label.value)">
+            <div class="suggest" ng-class="$first ? 'no-divider':'divider'">
+              <div class="truncate event-name">{{event.label.value}}</div>
+              <div class="time-stamp">{{event.time.stTimeStamp}} &nbsp;-&nbsp; {{event.time.endTimeStamp}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="locator-section">
+      <angular-gmap coordinates="coordinates"></angular-gmap>
+    </div>
+  </section>
+</body>
+
+</html>
